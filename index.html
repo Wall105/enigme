@@ -125,15 +125,27 @@
         document.getElementById('start-btn').style.display = 'none';
         document.getElementById('enigma-box').style.display = 'flex';
 
-        // Lancer ta musique de suspens
+        // Lancer ta musique de suspens (Très bas au début pour laisser la place à la voix)
         let bgMusic = document.getElementById('bg-music');
-        bgMusic.volume = 0.4;
+        bgMusic.volume = 0.15; // Baisse le volume initial
         bgMusic.play().catch(e => console.log("Musique fond bloquée"));
 
         // Lancer la voix de l'IA
         let voice = document.getElementById('voice-audio');
         voice.volume = 1.0;
         voice.play().catch(e => console.log("Voix off non trouvée ou bloquée"));
+
+        // Quand la voix off se termine, on fait monter le son du suspense !
+        voice.onended = function() {
+            let fadeAudio = setInterval(function () {
+                // On monte le son jusqu'à 0.6
+                if (bgMusic.volume < 0.6) {
+                    bgMusic.volume = Math.min(0.6, bgMusic.volume + 0.05);
+                } else {
+                    clearInterval(fadeAudio);
+                }
+            }, 200); // Le son augmente toutes les 200ms pour un bel effet fluide
+        };
 
         // Temps d'apparition des lignes (à caler sur le rythme de ton MP3 final)
         setTimeout(() => document.getElementById('l1').classList.add('show'), 1000);
