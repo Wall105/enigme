@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>L'Énigme des 1900 Subs</title>
+    <style>
+        /* Polices mystérieuses et élégantes */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,600;1,400&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle at center, #1a1510 0%, #000000 90%);
+            color: #fff;
+            font-family: 'Cormorant Garamond', serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Effet de brouillard en arrière-plan */
+        .fog {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog1.png') repeat-x;
+            background-size: 200% 100%;
+            opacity: 0.15;
+            animation: fogMove 60s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        @keyframes fogMove { 
+            0% { background-position: 0 0; } 
+            100% { background-position: -200% 0; } 
+        }
+
+        /* Conteneur principal de l'énigme */
+        .container {
+            text-align: center;
+            z-index: 10;
+            max-width: 1000px;
+            padding: 60px 40px;
+            border: 2px solid rgba(255, 183, 0, 0.2);
+            background: rgba(10, 8, 5, 0.85);
+            box-shadow: 0 0 60px rgba(255, 183, 0, 0.15), inset 0 0 40px rgba(0,0,0,0.9);
+            border-radius: 15px;
+            display: none; 
+            flex-direction: column;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        h1 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 55px;
+            color: #ffb700;
+            text-shadow: 0 0 25px rgba(255, 183, 0, 0.6);
+            margin-top: 0;
+            margin-bottom: 50px;
+            letter-spacing: 6px;
+        }
+
+        .line {
+            font-size: 38px;
+            margin: 20px 0;
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: all 2.5s ease-out; 
+            color: #e0d0b0;
+            font-style: italic;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .line.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Bouton de lancement */
+        .btn-start {
+            padding: 20px 50px;
+            font-size: 26px;
+            background: transparent;
+            color: #ffb700;
+            border: 2px solid #ffb700;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Cinzel Decorative', serif;
+            letter-spacing: 3px;
+            transition: 0.4s;
+            z-index: 20;
+            box-shadow: 0 0 20px rgba(255, 183, 0, 0.2);
+        }
+
+        .btn-start:hover {
+            background: #ffb700;
+            color: #000;
+            box-shadow: 0 0 40px rgba(255, 183, 0, 0.6);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+<audio id="bg-music" src="suspens.mp3" preload="auto" loop></audio>
+<audio id="voice-audio" src="voixofff.mp3" preload="auto"></audio>
+
+<div class="fog"></div>
+
+<button id="start-btn" class="btn-start" onclick="startEnigma()">RÉVÉLER L'ÉNIGME</button>
+
+<div class="container" id="enigma-box">
+    <h1>L'Énigme du Palier 1900</h1>
+    <div class="line" id="l1">"Je suis différent chaque jour, mais les meilleurs me rendent constant."</div>
+    <div class="line" id="l2">"On croit que je viens avec l'expérience..."</div>
+    <div class="line" id="l3">"Je ne dépends pas de ta force, mais de ta constance."</div>
+    <div class="line" id="l4">"Les pros me travaillent en silence. Les autres pensent que c'est du talent."</div>
+</div>
+
+<script>
+    function startEnigma() {
+        document.getElementById('start-btn').style.display = 'none';
+        document.getElementById('enigma-box').style.display = 'flex';
+
+        // Lancer ta musique de suspens
+        let bgMusic = document.getElementById('bg-music');
+        bgMusic.volume = 0.4;
+        bgMusic.play().catch(e => console.log("Musique fond bloquée"));
+
+        // Lancer la voix de l'IA
+        let voice = document.getElementById('voice-audio');
+        voice.volume = 1.0;
+        voice.play().catch(e => console.log("Voix off non trouvée ou bloquée"));
+
+        // Temps d'apparition des lignes (à caler sur le rythme de ton MP3 final)
+        setTimeout(() => document.getElementById('l1').classList.add('show'), 1000);
+        setTimeout(() => document.getElementById('l2').classList.add('show'), 6000);
+        setTimeout(() => document.getElementById('l3').classList.add('show'), 10000);
+        setTimeout(() => document.getElementById('l4').classList.add('show'), 15000);
+    }
+</script>
+
+</body>
+</html>
